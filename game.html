@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style></style>
+
+<body>
+    <h1>Jump!!!</h1>
+
+    <div style = "border: 1px solid black; height: 230px; width: 600px;" >
+        <div id = 'box' onclick="Jump()" style="position:absolute; border: 1px solid black;
+            height: 50px; width: 50px; background-color: green; top:245px;left:50px;">
+        </div>
+
+        <div id = 'box_'   style="position:absolute; border: 1px solid black;
+            height: 25px; width: 25px; background-color: red; top:270px; left:590px;">
+        </div>
+
+    </div>
+
+
+
+
+<script>
+
+
+var obsInitPosit = 590;
+var obstacle = setInterval(function(){
+    obsInitPosit = obsInitPosit - 5;
+        document.getElementById("box_").style.left = obsInitPosit + 'px';
+        if(obsInitPosit <= 15){
+            obsInitPosit = 590;
+            document.getElementById("box_").style.height = '-50px';
+        }
+    },50);
+
+
+
+
+//75 to 25 and 245 to 200
+var collideMonitor = setInterval(function(){
+var box_Div = document.getElementById("box_");
+var boxDiv = document.getElementById("box");
+    if(  ((box_Div.offsetLeft <= 75) && (box_Div.offsetLeft >= 45))   &&    ((boxDiv.offsetTop <= 245) && (boxDiv.offsetTop >= 240)) ) {
+       alert("Collide!!");
+        clearInterval(collideMonitor);
+    }
+    },50);
+
+
+function DeJump(){
+    var i = 200;
+    var dejumpAction = setInterval(function(){
+        i = i + 5;
+        document.getElementById("box").style.top = i + 'px';
+        if(i >= 245){
+            clearInterval(dejumpAction);
+        }
+    },50);
+}
+
+function Jump(){
+    var i = 245;
+    var jumpAction = setInterval(function(){
+        i = i - 5;
+        document.getElementById("box").style.top = i + 'px';
+        if(i <= 200){
+            clearInterval(jumpAction);
+            DeJump();
+        }
+    },50);
+}
+
+
+
+
+
+</script>
+
+</body>
+</html>
